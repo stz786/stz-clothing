@@ -3,7 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>STZ Clothing</title>
-  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD" data-sdk-integration-source="button-factory"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD" data-sdk-integration-source="button-factory">function removeFromBasket(index) {
+      basket.splice(index, 1);
+      updateBasket();
+    }
+
+    function handleBilling(e) {
+      e.preventDefault();
+      alert('✅ Payment processed successfully! You will receive a confirmation email.');
+    }
+  </script>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -117,7 +126,7 @@
     <div class="product">
       <label for="quantity">Quantity:</label>
       <input type="number" id="quantity" name="quantity" min="1" value="1" style="width: 60px; margin-bottom: 10px;">
-      <button class="buy-btn" onclick="addProductToBasket('Black Car T-Shirt', 99)">Add to Basket</button>
+      <button class="buy-btn" onclick="addProductToBasket('Black Car T-Shirt', 99); showBilling()">Buy Now</button>
       <a href="#product-detail">
         <img src="tshirt-black-car.png" alt="Black Car T-Shirt" style="max-height: 250px; object-fit: cover; width: 100%;">
       </a>
@@ -138,12 +147,7 @@
     ✅ Thank you for your purchase! Your order has been confirmed.
   </div>
 
-  <footer>
-    &copy; 2025 STZ Clothing. All rights reserved.
-  $1<a href="tel:+918860003883" style="margin: 0 10px; color: #ffffff; text-decoration: none; font-weight: bold;">Call: +91 88600 03883</a>
-<a href="https://wa.me/918860003883" target="_blank" style="margin: 0 10px; color: #25D366; text-decoration: none; font-weight: bold;">WhatsApp</a>
-    </div>
-  </footer>
+  <footer>Email: <a href="mailto:subhansultanzada90@gmail.com" style="color: #00aaff; text-decoration: none;" onclick="alert('You are now sending a message to STZ Clothing via email.')">subhansultanzada90@gmail.com</a></footer>
 
   <script>
     let cartCount = 0;
@@ -180,8 +184,8 @@
   </script>
   <!-- Floating Social Icons -->
   <div style="position: fixed; bottom: 20px; left: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px;">
-    <a href="tel:+918860003883" style="background: #333; color: #fff; padding: 10px; border-radius: 50%; text-align: center; width: 45px; height: 45px; font-size: 20px; text-decoration: none;">📞</a>
-    <a href="https://wa.me/918860003883" target="_blank" style="background: #25D366; color: #fff; padding: 10px; border-radius: 50%; text-align: center; width: 45px; height: 45px; font-size: 20px; text-decoration: none;">💬</a>
+    <a href="tel:+93777700700" style="background: #333; color: #fff; padding: 10px; border-radius: 50%; text-align: center; width: 45px; height: 45px; font-size: 20px; text-decoration: none;">📞</a>
+    <a href="https://wa.me/93777700700" target="_blank" style="background: #25D366; color: #fff; padding: 10px; border-radius: 50%; text-align: center; width: 45px; height: 45px; font-size: 20px; text-decoration: none;">💬</a>
     <a href="https://www.instagram.com/stz_bld" target="_blank" style="background: #E1306C; color: #fff; padding: 10px; border-radius: 50%; text-align: center; width: 45px; height: 45px; font-size: 20px; text-decoration: none;">📷</a>
   </div>
   <!-- Basket Modal -->
@@ -191,7 +195,25 @@
     <p><strong>Total:</strong> $<span id="basket-total">0</span></p>
   </div>
 
-  <script>
+  <!-- Billing Form -->
+  <div id="billing-form" style="display:none; padding: 30px; max-width: 400px; margin: 0 auto; background: rgba(255,255,255,0.05); border-radius: 12px;">
+    <h2 style="text-align:center;">Billing Information</h2>
+    <form onsubmit="handleBilling(event)">
+      <label>Full Name:</label><br>
+      <input type="text" required style="width: 100%; padding: 8px; margin-bottom: 10px;"><br>
+      <label>Email:</label><br>
+      <input type="email" value="subhansultanzada90@gmail.com" required style="width: 100%; padding: 8px; margin-bottom: 10px;"><br>
+      <label>Card Number:</label><br>
+      <input type="text" required placeholder="1234 5678 9012 3456" style="width: 100%; padding: 8px; margin-bottom: 10px;"><br>
+      <label>Expiry Date:</label><br>
+      <input type="text" required placeholder="MM/YY" style="width: 100%; padding: 8px; margin-bottom: 10px;"><br>
+      <label>CVV:</label><br>
+      <input type="text" required placeholder="123" style="width: 100%; padding: 8px; margin-bottom: 10px;"><br>
+      <button type="submit" style="background: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 6px; cursor: pointer; width: 100%;">Pay Now</button>
+    </form>
+  </div>
+
+<script>
     let basket = [];
 
     function addProductToBasket(name, price) {
@@ -203,16 +225,27 @@
       updateBasket();
     }
 
-    function updateBasket() {
+    function showBilling() {
+  const billingForm = document.getElementById('billing-form');
+  billingForm.style.display = 'block';
+  billingForm.scrollIntoView({ behavior: 'smooth' });
+}
+
+function updateBasket() {
       const basketDiv = document.getElementById('basket');
       const basketList = document.getElementById('basket-items');
       const basketTotal = document.getElementById('basket-total');
       basketDiv.style.display = 'block';
       basketList.innerHTML = '';
       let total = 0;
-      basket.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.quantity} × ${item.name} - $${item.quantity * item.price}`;
+      basket.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.innerHTML = `${item.quantity} × ${item.name} - $${item.quantity * item.price} <button onclick="removeFromBasket(${index})" style='background:red;color:white;border:none;border-radius:5px;padding:2px 6px;margin-left:8px;'>✖</button>`;
+      basketList.appendChild(li);
+      total += item.quantity * item.price;
+    });
+        total += item.quantity * item.price;
+      }); × ${item.name} - $${item.quantity * item.price}`;
         basketList.appendChild(li);
         total += item.quantity * item.price;
       });

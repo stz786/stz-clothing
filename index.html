@@ -3,37 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>STZ Clothing</title>
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD" data-sdk-integration-source="button-factory"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #1d1d1d, #3d3d3d);
       color: white;
-      min-height: 100vh;
+      margin: 0;
+      padding: 0;
     }
-
     header {
       background-color: rgba(0, 0, 0, 0.7);
       padding: 30px;
       text-align: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
-
-    header h1 {
-      font-size: 2.8em;
-      letter-spacing: 2px;
-    }
-
-    header p {
-      font-size: 1.2em;
-      color: #ccc;
-    }
-
     #cart {
       position: absolute;
       top: 20px;
@@ -41,16 +24,13 @@
       background-color: #28a745;
       padding: 8px 15px;
       border-radius: 20px;
-      font-size: 14px;
     }
-
     nav {
       background-color: rgba(255, 255, 255, 0.05);
       padding: 15px;
       text-align: center;
       backdrop-filter: blur(5px);
     }
-
     nav a {
       color: #fff;
       margin: 0 15px;
@@ -59,79 +39,64 @@
       padding: 6px 10px;
       border-radius: 5px;
     }
-
     nav a:hover {
       background-color: rgba(255, 255, 255, 0.2);
     }
-
     .products {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
       padding: 30px;
     }
-
     .product {
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 12px;
       margin: 20px;
       padding: 20px;
-      width: 240px;
+      width: 260px;
       text-align: center;
       backdrop-filter: blur(10px);
-      transition: transform 0.3s ease;
     }
-
-    .product:hover {
-      transform: translateY(-5px);
-    }
-
     .product img {
       width: 100%;
       height: auto;
       border-radius: 8px;
       margin-bottom: 10px;
     }
-
     .product h3 {
-      font-size: 1.2em;
-      margin: 10px 0 5px;
+      margin-bottom: 5px;
     }
-
     .product p {
-      color: #90ee90;
-      font-weight: bold;
+      margin: 4px 0;
     }
-
-    .buy-btn {
-      background-color: #ff4b5c;
-      color: white;
-      padding: 10px 18px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.95em;
-      margin-top: 10px;
-      transition: background 0.3s ease;
+    select {
+      padding: 5px;
+      margin-top: 8px;
+      border-radius: 5px;
     }
-
-    .buy-btn:hover {
-      background-color: #e63b4a;
+    .paypal-button {
+      margin-top: 12px;
     }
-
+    .thank-you {
+      display: none;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .thank-you.active {
+      display: block;
+      color: lightgreen;
+      font-size: 1.2em;
+    }
     footer {
       background-color: rgba(0, 0, 0, 0.6);
-      color: #aaa;
       text-align: center;
       padding: 15px;
       margin-top: 40px;
-      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
-
   <header>
     <h1>STZ Clothing</h1>
     <p>Style That Speaks</p>
@@ -148,40 +113,73 @@
   </nav>
 
   <section class="products">
+    <!-- Product: Black Car T-Shirt -->
     <div class="product">
-      <img src="https://via.placeholder.com/200x250" alt="T-Shirt">
-      <h3>Classic T-Shirt</h3>
-      <p>$20.00</p>
-      <button class="buy-btn" onclick="addToCart(20)">Add to Cart</button>
-    </div>
-    <div class="product">
-      <img src="https://via.placeholder.com/200x250" alt="Hoodie">
-      <h3>Comfy Hoodie</h3>
-      <p>$35.00</p>
-      <button class="buy-btn" onclick="addToCart(35)">Add to Cart</button>
-    </div>
-    <div class="product">
-      <img src="https://via.placeholder.com/200x250" alt="Jeans">
-      <h3>Denim Jeans</h3>
-      <p>$40.00</p>
-      <button class="buy-btn" onclick="addToCart(40)">Add to Cart</button>
+      <a href="#product-detail">
+        <img src="tshirt-black-car.png" alt="Black Car T-Shirt" style="max-height: 250px; object-fit: cover; width: 100%;">
+      </a>
+      <h3>Black Car T-Shirt</h3>
+      <p><strong>Price:</strong> $99</p>
+      <label for="size">Size:</label>
+      <select name="size" id="size">
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+      </select>
+      <div class="paypal-button" id="paypal-button-container"></div>
     </div>
   </section>
 
+  <div id="thank-you" class="thank-you">
+    ✅ Thank you for your purchase! Your order has been confirmed.
+  </div>
+
   <footer>
     &copy; 2025 STZ Clothing. All rights reserved.
+  $1<a href="tel:+918860003883" style="margin: 0 10px; color: #ffffff; text-decoration: none; font-weight: bold;">Call: +91 88600 03883</a>
+<a href="https://wa.me/918860003883" target="_blank" style="margin: 0 10px; color: #25D366; text-decoration: none; font-weight: bold;">WhatsApp</a>
+    </div>
   </footer>
 
   <script>
     let cartCount = 0;
     let cartTotal = 0;
-
     function addToCart(price) {
       cartCount++;
       cartTotal += price;
       document.getElementById('cart').textContent = `🛒 ${cartCount} items - $${cartTotal}`;
     }
-  </script>
 
+    paypal.Buttons({
+      style: {
+        shape: 'rect',
+        color: 'gold',
+        layout: 'vertical',
+        label: 'paypal'
+      },
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value: '99.00'
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          document.getElementById('thank-you').classList.add('active');
+          alert('Transaction completed by ' + details.payer.name.given_name + '!');
+        });
+      }
+    }).render('#paypal-button-container');
+  </script>
+  <!-- Floating Social Icons -->
+  <div style="position: fixed; bottom: 20px; left: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px;">
+    <a href="tel:+918860003883" style="background: #333; color: #fff; padding: 10px; border-radius: 50%; text-align: center; width: 45px; height: 45px; font-size: 20px; text-decoration: none;">📞</a>
+    <a href="https://wa.me/918860003883" target="_blank" style="background: #25D366; color: #fff; padding: 10px; border-radius: 50%; text-align: center; width: 45px; height: 45px; font-size: 20px; text-decoration: none;">💬</a>
+    <a href="https://www.instagram.com/stz_bld" target="_blank" style="background: #E1306C; color: #fff; padding: 10px; border-radius: 50%; text-align: center; width: 45px; height: 45px; font-size: 20px; text-decoration: none;">📷</a>
+  </div>
 </body>
 </html>

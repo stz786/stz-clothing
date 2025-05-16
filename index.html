@@ -3,16 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>STZ Clothing</title>
-  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD" data-sdk-integration-source="button-factory">function removeFromBasket(index) {
-      basket.splice(index, 1);
-      updateBasket();
-    }
-
-    function handleBilling(e) {
-      e.preventDefault();
-      alert('✅ Payment processed successfully! You will receive a confirmation email.');
-    }
-  </script>
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD" data-sdk-integration-source="button-factory"></script>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -118,7 +109,7 @@
     <a href="#">Women</a>
     <a href="#">Kids</a>
     <a href="#">Accessories</a>
-    <a href="#">Contact</a>
+    <a href="#" onclick="showContactInfo()">Contact</a>
   </nav>
 
   <section class="products">
@@ -147,7 +138,12 @@
     ✅ Thank you for your purchase! Your order has been confirmed.
   </div>
 
-  <footer>Email: <a href="mailto:subhansultanzada90@gmail.com" style="color: #00aaff; text-decoration: none;" onclick="alert('You are now sending a message to STZ Clothing via email.')">subhansultanzada90@gmail.com</a></footer>
+  <footer>Email: <a href="mailto:subhansultanzada90@gmail.com" style="color: #00aaff; text-decoration: none;" onclick="alert('You are now sending a message to STZ Clothing via email.')">subhansultanzada90@gmail.com</a><div id="contact-info" style="display:none; margin-top: 15px;">
+    <p><strong>Phone:</strong> +93 777 700 700</p>
+    <p><strong>WhatsApp:</strong> <a href="https://wa.me/93777700700" target="_blank" style="color: #25D366;">Chat on WhatsApp</a></p>
+    <p><strong>Email:</strong> <a href="mailto:subhansultanzada90@gmail.com" style="color: #00aaff;">subhansultanzada90@gmail.com</a></p>
+  </div>
+</footer>
 
   <script>
     let cartCount = 0;
@@ -181,8 +177,23 @@
         });
       }
     }).render('#paypal-button-container');
-  </script>
-  <!-- Floating Social Icons -->
+  <script>
+  function removeFromBasket(index) {
+    basket.splice(index, 1);
+    updateBasket();
+  }
+
+  function handleBilling(e) {
+    e.preventDefault();
+    alert('✅ Payment processed successfully! You will receive a confirmation email.');
+  }
+
+  function showContactInfo() {
+    const contactInfo = document.getElementById('contact-info');
+    contactInfo.style.display = contactInfo.style.display === 'none' ? 'block' : 'none';
+  }
+</script>
+<!-- Floating Social Icons -->
   <div style="position: fixed; bottom: 20px; left: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px;">
     <a href="tel:+93777700700" style="background: #333; color: #fff; padding: 10px; border-radius: 50%; text-align: center; width: 45px; height: 45px; font-size: 20px; text-decoration: none;">📞</a>
     <a href="https://wa.me/93777700700" target="_blank" style="background: #25D366; color: #fff; padding: 10px; border-radius: 50%; text-align: center; width: 45px; height: 45px; font-size: 20px; text-decoration: none;">💬</a>
@@ -244,14 +255,4 @@ function updateBasket() {
       basketList.appendChild(li);
       total += item.quantity * item.price;
     });
-        total += item.quantity * item.price;
-      }); × ${item.name} - $${item.quantity * item.price}`;
-        basketList.appendChild(li);
-        total += item.quantity * item.price;
-      });
-      basketTotal.textContent = total.toFixed(2);
-    }
-  </script>
-</body>
-</html>
-
+    basketTotal.textContent = total.toFixed(2);

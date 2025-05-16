@@ -115,6 +115,9 @@
   <section class="products">
     <!-- Product: Black Car T-Shirt -->
     <div class="product">
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" name="quantity" min="1" value="1" style="width: 60px; margin-bottom: 10px;">
+      <button class="buy-btn" onclick="addProductToBasket('Black Car T-Shirt', 99)">Add to Basket</button>
       <a href="#product-detail">
         <img src="tshirt-black-car.png" alt="Black Car T-Shirt" style="max-height: 250px; object-fit: cover; width: 100%;">
       </a>
@@ -181,5 +184,41 @@
     <a href="https://wa.me/918860003883" target="_blank" style="background: #25D366; color: #fff; padding: 10px; border-radius: 50%; text-align: center; width: 45px; height: 45px; font-size: 20px; text-decoration: none;">💬</a>
     <a href="https://www.instagram.com/stz_bld" target="_blank" style="background: #E1306C; color: #fff; padding: 10px; border-radius: 50%; text-align: center; width: 45px; height: 45px; font-size: 20px; text-decoration: none;">📷</a>
   </div>
+  <!-- Basket Modal -->
+  <div id="basket" style="position: fixed; top: 80px; right: 20px; background: rgba(0,0,0,0.8); color: white; padding: 15px; border-radius: 10px; display: none; width: 250px; max-height: 300px; overflow-y: auto; z-index: 1001;">
+    <h3>Your Basket</h3>
+    <ul id="basket-items" style="list-style: none; padding-left: 0;"></ul>
+    <p><strong>Total:</strong> $<span id="basket-total">0</span></p>
+  </div>
+
+  <script>
+    let basket = [];
+
+    function addProductToBasket(name, price) {
+      const qtyInput = document.getElementById('quantity');
+      const quantity = parseInt(qtyInput.value);
+      if (!quantity || quantity <= 0) return;
+
+      basket.push({ name, price, quantity });
+      updateBasket();
+    }
+
+    function updateBasket() {
+      const basketDiv = document.getElementById('basket');
+      const basketList = document.getElementById('basket-items');
+      const basketTotal = document.getElementById('basket-total');
+      basketDiv.style.display = 'block';
+      basketList.innerHTML = '';
+      let total = 0;
+      basket.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.quantity} × ${item.name} - $${item.quantity * item.price}`;
+        basketList.appendChild(li);
+        total += item.quantity * item.price;
+      });
+      basketTotal.textContent = total.toFixed(2);
+    }
+  </script>
 </body>
 </html>
+

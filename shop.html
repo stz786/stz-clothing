@@ -67,6 +67,11 @@
   <header>
     <h1>STZ Clothing - Shop</h1>
   </header>
+  <nav style="background: rgba(255,255,255,0.05); padding: 15px; text-align: center;">
+    <a href="index.html" style="color: white; margin: 0 15px; text-decoration: none; font-weight: 600;">Home</a>
+    <a href="shop.html" style="color: white; margin: 0 15px; text-decoration: none; font-weight: 600;">Shop</a>
+    <a href="#contact" style="color: white; margin: 0 15px; text-decoration: none; font-weight: 600;">Contact</a>
+  </nav>
   <div class="products">
     <div class="product">
       <img src="tshirt-white-circle-logo.png" alt="White T-Shirt">
@@ -90,5 +95,29 @@
       <button class="buy-btn">Add to Cart</button>
     </div>
   </div>
+<footer style="background-color: rgba(0, 0, 0, 0.6); color: #aaa; text-align: center; padding: 20px; margin-top: 40px; font-size: 0.9em;">
+  <p>Contact us: <a href="mailto:subhansultanzada90@gmail.com" style="color: #00aaff; text-decoration: none;">subhansultanzada90@gmail.com</a></p>
+  <p>WhatsApp: <a href="https://wa.me/93777700700" target="_blank" style="color: #25D366; text-decoration: none;">+93 777 700 700</a></p>
+  <p>Instagram: <a href="https://www.instagram.com/stz_brd" target="_blank" style="color: #E1306C; text-decoration: none;">@stz_brd</a></p>
+  <p>&copy; 2025 STZ Clothing. All rights reserved.</p>
+</footer>
+
+<script>
+let basket = [];
+
+const buttons = document.querySelectorAll('.buy-btn');
+buttons.forEach((btn, index) => {
+  btn.addEventListener('click', () => {
+    const productCards = document.querySelectorAll('.product');
+    const card = productCards[index];
+    const name = card.querySelector('h3').innerText;
+    const price = parseFloat(card.querySelector('p').innerText.replace('$', ''));
+    const item = { name, price, quantity: 1 };
+    basket.push(item);
+    alert(`${item.name} added to basket.`);
+    console.log('Basket:', basket);
+  });
+});
+</script>
 </body>
 </html>

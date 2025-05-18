@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - STZ Clothing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1d1d1d, #3d3d3d);
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .product {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 15px;
+      width: 260px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .product:hover {
+      transform: translateY(-5px);
+    }
+    .product img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .product h3 {
+      margin: 10px 0 5px;
+    }
+    .product p {
+      margin: 5px 0;
+    }
+    .buy-btn {
+      margin-top: 10px;
+      padding: 10px 16px;
+      background: #ff4b5c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>STZ Clothing - Shop</h1>
+  </header>
+  <div class="products">
+    <div class="product">
+      <img src="tshirt-white-circle-logo.png" alt="White T-Shirt">
+      <h3>White Logo T-Shirt</h3>
+      <p>$29.00</p>
+      <p>Sizes: S, M, L, XL</p>
+      <button class="buy-btn">Add to Cart</button>
+    </div>
+    <div class="product">
+      <img src="https://via.placeholder.com/300x250?text=Hoodie" alt="Hoodie">
+      <h3>Urban Grey Hoodie</h3>
+      <p>$49.00</p>
+      <p>Sizes: M, L, XL</p>
+      <button class="buy-btn">Add to Cart</button>
+    </div>
+    <div class="product">
+      <img src="https://via.placeholder.com/300x250?text=Cap" alt="Cap">
+      <h3>Classic Black Cap</h3>
+      <p>$19.00</p>
+      <p>Sizes: One Size</p>
+      <button class="buy-btn">Add to Cart</button>
+    </div>
+  </div>
+</body>
+</html>
